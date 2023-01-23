@@ -1,0 +1,5 @@
+C:\Users\emers\source\repos\API_Control\API_Control\obj\Debug\netcoreapp3.1\API_Control.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\emers\source\repos\API_Control\API_Control\obj\Debug\netcoreapp3.1\API_Control.AssemblyInfoInputs.cache
+C:\Users\emers\source\repos\API_Control\API_Control\obj\Debug\netcoreapp3.1\API_Control.AssemblyInfo.cs
+C:\Users\emers\source\repos\API_Control\API_Control\obj\Debug\netcoreapp3.1\API_Control.csproj.CoreCompileInputs.cache
+C:\Users\emers\source\repos\API_Control\API_Control\obj\Debug\netcoreapp3.1\API_Control.MvcApplicationPartsAssemblyInfo.cache
