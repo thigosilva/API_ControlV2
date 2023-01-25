@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using API_Control.Tools;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Data.SqlClient;
-using API_Control.POCO.Empresa;
+
 
 
 namespace API_Control.Controllers
@@ -11,8 +12,8 @@ namespace API_Control.Controllers
     public class EmpresaController : Controller
     {
         [HttpPost]
-        public string empresa(int ID,
-            DateTime Data_Inicio, 
+        public string Empresa(int ID,
+            DateTime Data_Inicio,
             DateTime Data_fechamento,
             DateTime Data_Edicao,
             string status,
@@ -24,57 +25,56 @@ namespace API_Control.Controllers
             string abertura,
             string Empresa_ID)
         {
-          
-           using ()
-           {
-               using (SqlConnection dbConnection = new SqlConnection(oConnect.StringConnect()))
-               {
-                   dbConnection.Open();
-                   try
-                   {
-                       /// Ajusta o Insert para seu projeto
-                       String CommandoInsert = $"INSERT INTO Empresa" +
-                           $"(ID, " +
-                           $"Data_Inicio," +
-                           $"Data_Fechamento," +
-                           $"Data_Edicao," +
-                           $"status" +
-                           $"ultima_atualizacao" +
-                           $"cnpj" +
-                           $"tipo" +
-                           $"porte" +
-                           $"nome_fantasia" +
-                           $"abertura" +
-                           $"Empresa_ID) " +
-                           $" VALUES " +
-                           $"({ID}, " +
-                           $"{Data_Inicio}," +
-                           $"{Data_fechamento}," +
-                           $"{Data_Edicao}," +
-                           $"{status}'" +
-                           $"{ultima_atualizacao}" +
-                           $"{cnpj}" +
-                           $"{tipo}" +
-                           $"{porte}" +
-                           $"{nome_fantasia}" +
-                           $"{abertura}" +
-                           $"{Empresa_ID})";
-                           /////////////////////////////////////
 
-                           SqlCommand command_tmp =
-                           new
-                           SqlCommand(CommandoInsert, dbConnection);
+            ConnectDB oConnect = new ConnectDB();
+            using (SqlConnection dbConnection = new SqlConnection(oConnect.StringConnect()))
+            {
+                dbConnection.Open();
+                try
+                {
+                    /// Ajusta o Insert para seu projeto
+                    String CommandoInsert = $"INSERT INTO Empresa" +
+                        $"(ID, " +
+                        $"Data_Inicio," +
+                        $"Data_Fechamento," +
+                        $"Data_Edicao," +
+                        $"status," +
+                        $"ultima_atualizacao," +
+                        $"cnpj," +
+                        $"tipo," +
+                        $"porte," +
+                        $"nome_fantasia," +
+                        $"abertura," +
+                        $"Empresa_ID) " +
+                        $" VALUES " +
+                        $"({ID}, " +
+                        $"{Data_Inicio}," +
+                        $"{Data_fechamento}," +
+                        $"{Data_Edicao}," +
+                        $"{status}'" +
+                        $"{ultima_atualizacao}" +
+                        $"{cnpj}" +
+                        $"{tipo}" +
+                        $"{porte}" +
+                        $"{nome_fantasia}" +
+                        $"{abertura}" +
+                        $"{Empresa_ID})";
+                    /////////////////////////////////////
 
-                       command_tmp.ExecuteNonQuery();
-                   }
-                   catch (Exception) { }
-                   dbConnection.Close();
-               }
-           }
-          
+                    SqlCommand command_tmp =
+                    new
+                    SqlCommand(CommandoInsert, dbConnection);
+
+                    command_tmp.ExecuteNonQuery();
+                }
+                catch (Exception) { }
+                dbConnection.Close();
+            }
+
+            return "Retorno";
         }
-        
+
     }
 
-    
+
 }

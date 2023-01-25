@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using API_Control.Tools;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -20,40 +21,39 @@ namespace API_Control.Controllers
             int Equipamento_ID)
         {
 
-            using ()
+            ConnectDB oConnect = new ConnectDB();
+            using (SqlConnection dbConnection = new SqlConnection(oConnect.StringConnect()))
             {
-                using (SqlConnection dbConnection = new SqlConnection(oConnect.StringConnect()))
+                dbConnection.Open();
+                try
                 {
-                    dbConnection.Open();
-                    try
-                    {
-                        /// Ajusta o Insert para seu projeto
-                        String CommandoInsert = $"INSERT INTO Aluguel" +
-                            $"(ID, " +
-                            $"Data_Inicio," +
-                            $"Data_Fechamento," +
-                            $"Data_Edicao," +
-                            $"Empresa_ID" +
-                            $"Equipamento_ID) " +
-                            $" VALUES " +
-                            $"({ID}, " +
-                            $"{Data_Inicio}," +
-                            $"{Data_fechamento}," +
-                            $"{Data_Edicao}," +
-                            $"{Empresa_ID}" +
-                            $"{Equipamento_ID})";
-                        /////////////////////////////////////
+                    /// Ajusta o Insert para seu projeto
+                    String CommandoInsert = $"INSERT INTO Aluguel" +
+                        $"(ID, " +
+                        $"Data_Inicio," +
+                        $"Data_Fechamento," +
+                        $"Data_Edicao," +
+                        $"Empresa_ID," +
+                        $"Equipamento_ID) " +
+                        $" VALUES " +
+                        $"({ID}, " +
+                        $"{Data_Inicio}," +
+                        $"{Data_fechamento}," +
+                        $"{Data_Edicao}," +
+                        $"{Empresa_ID}" +
+                        $"{Equipamento_ID})";
+                    /////////////////////////////////////
 
-                        SqlCommand command_tmp =
-                        new
-                        SqlCommand(CommandoInsert, dbConnection);
+                    SqlCommand command_tmp =
+                    new
+                    SqlCommand(CommandoInsert, dbConnection);
 
-                        command_tmp.ExecuteNonQuery();
-                    }
-                    catch (Exception) { }
-                    dbConnection.Close();
+                    command_tmp.ExecuteNonQuery();
                 }
+                catch (Exception) { }
+                dbConnection.Close();
             }
+            return "retorno";
 
         }
     }

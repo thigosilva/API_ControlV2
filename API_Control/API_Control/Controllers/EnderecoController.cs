@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using API_Control.Tools;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -11,7 +12,7 @@ namespace API_Control.POCO
     [Route("[controller]")]
     public class EnderecoController : Controller
     {
-        
+
 
         [HttpPost]
         public string Equipamento(int ID,
@@ -30,59 +31,58 @@ namespace API_Control.POCO
              string EFR,
              int Empresa_ID)
         {
+            ConnectDB oConnect = new ConnectDB();
 
-            using ()
+            using (SqlConnection dbConnection = new SqlConnection(oConnect.StringConnect()))
             {
-                using (SqlConnection dbConnection = new SqlConnection(oConnect.StringConnect()))
+                dbConnection.Open();
+                try
                 {
-                    dbConnection.Open();
-                    try
-                    {
-                        /// Ajusta o Insert para seu projeto
-                        String CommandoInsert = $"INSERT INTO Equipamento" +
-                            $"(ID, " +
-                            $"Data_Inicio," +
-                            $"Data_Fechamento," +
-                            $"Data_Edicao," +
-                            $"Logradouro," +
-                            $"Numero," +
-                            $"Complemento," +
-                            $"CEP," +
-                            $"Bairro," +
-                            $"Municipio," +
-                            $"UF," +
-                            $"Email," +
-                            $"telefone," +
-                            $"EFR," +
-                            $"Empresa_ID) " +
-                            $" VALUES " +
-                            $"({ID}, " +
-                            $"{Data_Inicio}," +
-                            $"{Data_fechamento}," +
-                            $"{Data_Edicao}," +
-                            $"{Logradouro}" +
-                            $"{Numero}" +
-                            $"{Complemento}" +
-                            $"{CEP}" +
-                            $"{Bairro}" +
-                            $"{Municipio}" +
-                            $"{UF}" +
-                            $"{Email}" +
-                            $"{telefone}" +
-                            $"{EFR}" +
-                            $"{Empresa_ID})";
-                        /////////////////////////////////////
+                    /// Ajusta o Insert para seu projeto
+                    String CommandoInsert = $"INSERT INTO Endereco" +
+                        $"(ID, " +
+                        $"Data_Inicio," +
+                        $"Data_Fechamento," +
+                        $"Data_Edicao," +
+                        $"Logradouro," +
+                        $"Numero," +
+                        $"Complemento," +
+                        $"CEP," +
+                        $"Bairro," +
+                        $"Municipio," +
+                        $"UF," +
+                        $"Email," +
+                        $"telefone," +
+                        $"EFR," +
+                        $"Empresa_ID) " +
+                        $" VALUES " +
+                        $"({ID}, " +
+                        $"{Data_Inicio}," +
+                        $"{Data_fechamento}," +
+                        $"{Data_Edicao}," +
+                        $"{Logradouro}" +
+                        $"{Numero}" +
+                        $"{Complemento}" +
+                        $"{CEP}" +
+                        $"{Bairro}" +
+                        $"{Municipio}" +
+                        $"{UF}" +
+                        $"{Email}" +
+                        $"{telefone}" +
+                        $"{EFR}" +
+                        $"{Empresa_ID})";
+                    /////////////////////////////////////
 
-                        SqlCommand command_tmp =
-                        new
-                        SqlCommand(CommandoInsert, dbConnection);
+                    SqlCommand command_tmp =
+                    new
+                    SqlCommand(CommandoInsert, dbConnection);
 
-                        command_tmp.ExecuteNonQuery();
-                    }
-                    catch (Exception) { }
-                    dbConnection.Close();
+                    command_tmp.ExecuteNonQuery();
                 }
+                catch (Exception) { }
+                dbConnection.Close();
             }
+            return "retorno";
 
         }
     }
