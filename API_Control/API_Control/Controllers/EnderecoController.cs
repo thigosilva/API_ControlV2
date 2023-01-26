@@ -12,6 +12,27 @@ namespace API_Control.POCO
     [Route("[controller]")]
     public class EnderecoController : Controller
     {
+        public string get_Endereco()
+        {
+            ConnectDB oConnect = new ConnectDB();
+            using (SqlConnection dbConnection = new SqlConnection(oConnect.StringConnect()))
+            {
+                dbConnection.Open();
+                try
+                {
+
+
+                    SqlCommand command_tmp =
+                    new
+                    SqlCommand("SELECT * from Endereco", dbConnection);
+
+                    command_tmp.ExecuteNonQuery();
+                }
+                catch (Exception) { }
+                dbConnection.Close();
+            }
+            return "return";
+        }
 
 
         [HttpPost]

@@ -12,6 +12,29 @@ namespace API_Control.Controllers
     [Route("[controller]")]
     public class AluguelController : Controller
     {
+        public string get_Aluguel()
+        {
+            ConnectDB oConnect = new ConnectDB();
+
+            string oRetorno = string.Empty;
+            using (SqlConnection dbConnection = new SqlConnection(oConnect.StringConnect()))
+            {
+                dbConnection.Open();
+                try
+                {
+
+
+                    SqlCommand command_tmp =
+                    new
+                    SqlCommand("SELECT * from Aluguel", dbConnection);
+
+                    command_tmp.ExecuteNonQuery();
+                }
+                catch (Exception) { }
+                dbConnection.Close();
+            }
+            return "return";
+        }
         [HttpPost]
         public string Aluguel(int ID,
             DateTime Data_Inicio,

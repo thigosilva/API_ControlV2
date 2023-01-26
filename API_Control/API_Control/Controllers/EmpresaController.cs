@@ -11,6 +11,27 @@ namespace API_Control.Controllers
     [Route("[controller]")]
     public class EmpresaController : Controller
     {
+        [HttpGet]
+        public string get_Empresa() {
+            ConnectDB oConnect = new ConnectDB();
+            using (SqlConnection dbConnection = new SqlConnection(oConnect.StringConnect()))
+            {
+                dbConnection.Open();
+                try
+                {
+                   
+
+                    SqlCommand command_tmp =
+                    new
+                    SqlCommand("SELECT * from Empresa", dbConnection);
+
+                    command_tmp.ExecuteNonQuery();
+                }
+                catch (Exception) { }
+                dbConnection.Close();
+            }
+            return "return";
+        }
         [HttpPost]
         public string Empresa(int ID,
             DateTime Data_Inicio,
